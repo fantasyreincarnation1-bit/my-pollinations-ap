@@ -213,6 +213,7 @@ async function checkBalance() {
   } catch (err) {
     $("balanceResult").textContent = "تعذّر جلب الرصيد: " + err.message;
   }
+}                          
   async function generateSpeech() {
   const key = localStorage.getItem("pollinations_api_key");
   const text = $("promptInput").value.trim();
@@ -235,8 +236,7 @@ async function checkBalance() {
       try { detail = JSON.stringify(await res.json()); }
       catch { detail = await res.text(); }
       throw new Error(`HTTP ${res.status} — ${detail}`);
-    }
-
+    
     const blob = await res.blob();
     resultBox.innerHTML = "";
     const audio = document.createElement("audio");
@@ -246,11 +246,7 @@ async function checkBalance() {
   } catch (err) {
     resultBox.textContent = "تعذّر توليد الصوت: " + err.message;
   }
-}
-
-
-}
-
+  }
 function handleRedirectCallback() {
   if (!window.location.hash) return;
   const frag = new URLSearchParams(window.location.hash.slice(1));
